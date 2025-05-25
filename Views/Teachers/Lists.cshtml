@@ -1,0 +1,57 @@
+﻿@model List<CrudMap.Models.AllModel>
+
+@{
+    ViewBag.Title = "Teacher List";
+}
+
+<h2>All Teachers</h2>
+
+<p>
+    @Html.ActionLink("Add New Teacher", "Create")
+</p>
+
+<table border="1" cellpadding="15" cellspacing="5" width="1000px">
+    <thead>
+        <tr style="background-color: lightgray;">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>PDF</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                    {
+                        <img src="@Url.Content(item.ImagePath)" width="100" height="100" alt="No Image" />
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.PdfPath))
+                    {
+                        <a href="@Url.Content(item.PdfPath)" target="_blank">View PDF</a>
+                    }
+                    else
+                    {
+                        <span>No PDF</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

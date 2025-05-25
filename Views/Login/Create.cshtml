@@ -1,0 +1,111 @@
+﻿@model CrudMap.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+
+        .main {
+            width: 350px;
+            background: #1f1f2e;
+            border-radius: 10px;
+            box-shadow: 5px 20px 50px #000;
+            padding: 30px;
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btn {
+            background: #573b8a;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+            .btn:hover {
+                background: #6d44b8;
+            }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .validation {
+            color: #ff7b7b;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>Create Account</h2>
+        @using (Html.BeginForm("Create", "Login", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "validation" })
+
+            <label>User Name</label>
+            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Enter full name" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "validation" })
+
+            <label>Email ID</label>
+            @Html.TextBoxFor(m => m.EmailId, new { @placeholder = "Enter email" })
+            @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "validation" })
+
+            <label>Password</label>
+            @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter password" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation" })
+
+            <label>Date</label>
+            @Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { type = "date" })
+            @Html.ValidationMessageFor(m => m.Date, "", new { @class = "validation" })
+
+            <label>Country</label>
+            @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.CountryList, "Select a country")
+            @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "validation" })
+
+            <input type="submit" value="Register" class="btn" />
+        }
+
+        <a class="back-link" href="@Url.Action("Login", "Login")">Already have an account? Login</a>
+    </div>
+</body>
+</html>

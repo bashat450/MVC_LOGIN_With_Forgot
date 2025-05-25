@@ -1,0 +1,34 @@
+﻿@model CrudMap.Models.AllModel
+
+@{
+    ViewBag.Title = "Create Teacher";
+}
+
+<h2>Add New Teacher</h2>
+
+@using (Html.BeginForm("Create", "Teachers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label>ID</label><br />
+        @Html.TextBoxFor(model => model.Id, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Name</label><br />
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Upload Image</label><br />
+        <input type="file" name="imageFile" />
+    </div>
+    <div>
+        <label>Upload PDF</label><br />
+        <input type="file" name="pdfFile" />
+    </div>
+
+
+    <br />
+    <input type="submit" value="Create" class="btn btn-success" />
+    @Html.ActionLink("Back to List", "Lists", null, new { @class = "btn btn-secondary" })
+}

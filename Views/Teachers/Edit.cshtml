@@ -1,0 +1,53 @@
+﻿@model CrudMap.Models.AllModel
+
+@{
+    ViewBag.Title = "Edit Teacher";
+}
+
+<h2>Edit Teacher</h2>
+
+@using (Html.BeginForm("Edit", "Teachers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id)
+
+    <div>
+        <label>Name</label><br />
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Current Image</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Url.Content(Model.ImagePath)" width="150" height="150" alt="Current Image" />
+        }
+        else
+        {
+            <span>No image uploaded</span>
+        }
+    </div>
+
+    <div>
+        <label>Update New Image (optional)</label><br />
+        <input type="file" name="imageFile" />
+    </div>
+    <br />
+    <div>
+        <div>
+            <label>Update New PDF (optional)</label><br />
+            <input type="file" name="PdfFile" />
+        </div>
+        
+        @if (!string.IsNullOrEmpty(Model.PdfPath))
+        {
+            <a href="@Url.Content(Model.PdfPath)" target="_blank">Download Updated PDF</a>
+        }
+        else
+        {
+            <span>No PDF uploaded</span>
+        }
+    </div>
+    <br />
+    <input type="submit" value="Update" class="btn btn-primary" />
+    @Html.ActionLink("Back to List", "Lists", null, new { @class = "btn btn-secondary" })
+}
